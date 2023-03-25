@@ -54,6 +54,7 @@ def main() -> None:
         st.caption("First important thing was that the target variable Churn is unbalanced")
         with st.expander("Graph"):
             st.image(Image.open(IMAGE_DIR/"Churn.png"))
+            st.image(Image.open(DIRECTORY/"Churn.png"))
         st.caption("This information is useful for me to make decision on choice of the model.")
 
         st.header("Numeric Columns")
