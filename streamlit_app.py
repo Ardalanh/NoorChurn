@@ -131,6 +131,8 @@ def main() -> None:
                 mime='text/csv',
             )
 
+        st.write("Link to this repo: https://github.com/Ardalanh/NoorChurn")
+
 def download_dependencies():
     images = ["https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/CategoricDist.png",
               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/FeatureImportance.png",
