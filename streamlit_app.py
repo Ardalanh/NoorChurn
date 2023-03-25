@@ -1,14 +1,21 @@
 import streamlit as st
+from PIL import Image
 import pandas as pd
+import pathlib
 import joblib
 import os
+
 st.set_page_config(
     "Churn Prediction by Ardalan",
     "📊",
     initial_sidebar_state="expanded",
     layout="wide",
 )
-clf_path = os.environ.get("CLF_PATH", "clf.joblib")
+
+DIRECTORY = pathlib.Path().resolve()
+IMAGE_DIR = DIRECTORY/pathlib.Path("images")
+
+clf_path = DIRECTORY/"clf.joblib"
 
 class CategoryTransformer:
     def __init__(self, maps, col_name):
@@ -33,7 +40,7 @@ def load_model():
 
 @st.cache_data 
 def load_sample_data():
-    return pd.read_csv("sample_data.csv", index_col="CustomerID")
+    return pd.read_csv(DIRECTORY/"sample_data.csv", index_col="CustomerID")
 
 model = load_model()
 
@@ -46,18 +53,18 @@ def main() -> None:
         st.caption("Reading the column descriptions gave me an overall understandng of the data, altough I lack the domain knolwedge to dive really deep.")
         st.caption("First important thing was that the target variable Churn is unbalanced")
         with st.expander("Graph"):
-            st.image("images/Churn.png")
+            st.image(Image.open(IMAGE_DIR/"Churn.png"))
         st.caption("This information is useful for me to make decision on choice of the model.")
 
         st.header("Numeric Columns")
         st.caption("I decided to look at the distribution of numeric columns")
         with st.expander("Graph"):
-            st.image("images/NumericDist.png")
+            st.image(Image.open(IMAGE_DIR/"NumericDist.png"))
         st.caption("I can see that there are outliers in Tenure, Warehousetohome, NumberOfAddress, CouponUsed, DaysSinceLastOrder and CashbackAmount.")
         st.caption("This is relevant to our choice of model or wether we want to remove these outliers or no.")
         st.caption("Now I want to understand what's the distribution difference between Churn 1 nd 0")
         with st.expander("Graph"):
-            st.image("images/NumericDistChurn.png")
+            st.image(Image.open(IMAGE_DIR/"NumericDistChurn.png"))
         st.caption("Here we can see that there is noticable difference between people who churned and who didn't.")
         st.caption("Tenure is our first candidate for the best predictor of churn.")
         st.caption("The second best predictor seems to the Complain column.")
@@ -67,14 +74,14 @@ def main() -> None:
         st.caption("We see here that few categories from PreferredOrderCat, Marital Status and PreferredPaymentMonde columns are correlated with Churn")
         st.caption("Also I'm noticing few duplicated categories in PreferredLoginDevice and PrefredOrderCat")
         with st.expander("Graph"):
-            st.image("images/CategoricDist.png")
+            st.image(Image.open(IMAGE_DIR/"CategoricDist.png"))
 
         st.header("Missing Values")
         st.caption("initially it seems that the missing values are completely at random but after closely analyzing the missing values I figured that if I sorted the data by CashbackAMount, we can see it's not completely at Random")
         st.caption("I tried to understand if these missing values are random or not, and since I don't have the context where and how this data was collected and what each column is exactly referring to I can't make better judgement on the type of missing data, I'm going to treat this as missing at random.")
         st.caption("Although missing in the churn column is completely at random")
         with st.expander("Graph"):
-            st.image("images/Missing.png")
+            st.image(Image.open(IMAGE_DIR/"Missing.png"))
 
         st.header("Duplicated rows")
         st.caption("The data includes around +400 duplicated rows, if all duplicated rows are in train there will be no issue but randomly splitting into train/test there will be data leakage.")
@@ -94,13 +101,13 @@ def main() -> None:
         st.caption("I also search through hyperparaters of RandomForest and evaluated the model in 5 cross validation folds.")
         st.caption("For the metric of evaluation I used F1Score because it's suitable for unbalanced data and when we care about equally percision and recall of all casses.")
         with st.expander("Result Report"):
-            st.image("images/Results.png")
+            st.image(Image.open(IMAGE_DIR/"Results.png"))
         st.caption("The results of 0.95 of F1 score is really good, and it seems to me it's too good.")
         st.caption("I believe either this data is synthetic or there is a data leakage that I haven't noticed.")
         st.caption("Usually in reallity models with this level of accuracy are quite rare")
         st.caption("One of the positive side of using RandomForest as our model is that we can sort our features by their importance for prediction of Churn.")
         with st.expander("Feature Importance"):
-            st.image("images/FeatureImportance.png")
+            st.image(Image.open(IMAGE_DIR/"FeatureImportance.png"))
         st.caption("Here we can see how much each column is affecting the probability of Churning.")
 
     with tab3:
