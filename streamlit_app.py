@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import pandas as pd
 import pathlib
+import requests
 import joblib
 import os
 
@@ -46,6 +47,8 @@ model = load_model()
 
 
 def main() -> None:
+    download_dependencies()
+
     tab1, tab2, tab3 = st.tabs(["EDA", "Modeling", "API endpoint(GUI)"])
     with tab1:
         st.header("Overview")
@@ -53,7 +56,6 @@ def main() -> None:
         st.caption("Reading the column descriptions gave me an overall understandng of the data, altough I lack the domain knolwedge to dive really deep.")
         st.caption("First important thing was that the target variable Churn is unbalanced")
         with st.expander("Graph"):
-            st.image(Image.open(DIRECTORY/"Churn.png"))
             st.image(Image.open(IMAGE_DIR/"Churn.png"))
         st.caption("This information is useful for me to make decision on choice of the model.")
 
@@ -131,6 +133,37 @@ def main() -> None:
                 file_name='sample_data.csv',
                 mime='text/csv',
             )
+
+def download_dependencies():
+    images = ["https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/CategoricDist.png",
+              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/FeatureImportance.png",
+              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Missing.png",
+              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDist.png",
+              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDistChurn.png",
+              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Results.png",
+              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/churn.png"]
+
+    for img in images:
+        file_path = IMAGE_DIR/os.path.basename(img)
+        if os.path.exists(file_path):
+            continue
+        __download_url(img, file_path)
+
+    weight = "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/clf.joblib"
+    file_path = DIRECTORY/os.path.basename(weight)
+    if not os.path.exists(file_path):
+        __download_url(weight, file_path)
+
+    sample_data = "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/sample_data.csv"
+    file_path = DIRECTORY/os.path.basename(sample_data)
+    if not os.path.exists(file_path):
+        __download_url(sample_data, file_path)
+
+
+def __download_url(url, path):
+    img_data = requests.get(url).content
+    with open(path, "bw+") as f:
+        f.write(img_data)
 
 if __name__ == "__main__":
 
