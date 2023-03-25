@@ -164,6 +164,7 @@ def __download_url(url, path):
     img_data = requests.get(url).content
     with open(path, "bw+") as f:
         f.write(img_data)
+        st.write(path)
 
 if __name__ == "__main__":
 
