@@ -15,7 +15,7 @@ st.set_page_config(
 
 DIRECTORY = pathlib.Path().resolve()
 IMAGE_DIR = DIRECTORY/pathlib.Path("images")
-
+os.makedirs(IMAGE_DIR, exist_ok =True)
 clf_path = DIRECTORY/"clf.joblib"
 
 class CategoryTransformer:
