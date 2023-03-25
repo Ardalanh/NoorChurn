@@ -142,7 +142,7 @@ def download_dependencies():
               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDistChurn.png",
               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Results.png",
               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/churn.png"]
-
+    st.write("Downloading!!")
     for img in images:
         file_path = IMAGE_DIR/os.path.basename(img)
         if os.path.exists(file_path):
