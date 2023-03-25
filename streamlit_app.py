@@ -53,7 +53,7 @@ def main() -> None:
         st.caption("Reading the column descriptions gave me an overall understandng of the data, altough I lack the domain knolwedge to dive really deep.")
         st.caption("First important thing was that the target variable Churn is unbalanced")
         with st.expander("Graph"):
-            st.image("Churn.png")
+            st.image("churn.png")
         st.caption("This information is useful for me to make decision on choice of the model.")
 
         st.header("Numeric Columns")
