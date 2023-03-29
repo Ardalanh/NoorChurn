@@ -44,7 +44,6 @@ model = load_model()
 
 
 def main() -> None:
-    # download_dependencies()
 
     tab1, tab2, tab3 = st.tabs(["EDA", "Modeling", "API endpoint(GUI)"])
     with tab1:
@@ -59,12 +58,12 @@ def main() -> None:
         st.header("Numeric Columns")
         st.caption("I decided to look at the distribution of numeric columns")
         with st.expander("Graph"):
-            st.image(Image.open("NumericDist.png"))
+            st.image("images/NumericDist.png")
         st.caption("I can see that there are outliers in Tenure, Warehousetohome, NumberOfAddress, CouponUsed, DaysSinceLastOrder and CashbackAmount.")
         st.caption("This is relevant to our choice of model or wether we want to remove these outliers or no.")
         st.caption("Now I want to understand what's the distribution difference between Churn 1 nd 0")
         with st.expander("Graph"):
-            st.image(Image.open("NumericDistChurn.png"))
+            st.image("images/NumericDistChurn.png")
         st.caption("Here we can see that there is noticable difference between people who churned and who didn't.")
         st.caption("Tenure is our first candidate for the best predictor of churn.")
         st.caption("The second best predictor seems to the Complain column.")
@@ -74,14 +73,14 @@ def main() -> None:
         st.caption("We see here that few categories from PreferredOrderCat, Marital Status and PreferredPaymentMonde columns are correlated with Churn")
         st.caption("Also I'm noticing few duplicated categories in PreferredLoginDevice and PrefredOrderCat")
         with st.expander("Graph"):
-            st.image(Image.open("CategoricDist.png"))
+            st.image("images/CategoricDist.png")
 
         st.header("Missing Values")
         st.caption("initially it seems that the missing values are completely at random but after closely analyzing the missing values I figured that if I sorted the data by CashbackAMount, we can see it's not completely at Random")
         st.caption("I tried to understand if these missing values are random or not, and since I don't have the context where and how this data was collected and what each column is exactly referring to I can't make better judgement on the type of missing data, I'm going to treat this as missing at random.")
         st.caption("Although missing in the churn column is completely at random")
         with st.expander("Graph"):
-            st.image(Image.open("Missing.png"))
+            st.image("images/Missing.png")
 
         st.header("Duplicated rows")
         st.caption("The data includes around +400 duplicated rows, if all duplicated rows are in train there will be no issue but randomly splitting into train/test there will be data leakage.")
@@ -101,13 +100,13 @@ def main() -> None:
         st.caption("I also search through hyperparaters of RandomForest and evaluated the model in 5 cross validation folds.")
         st.caption("For the metric of evaluation I used F1Score because it's suitable for unbalanced data and when we care about equally percision and recall of all casses.")
         with st.expander("Result Report"):
-            st.image(Image.open("Results.png"))
+            st.image("images/Results.png")
         st.caption("The results of 0.95 of F1 score is really good, and it seems to me it's too good.")
         st.caption("I believe either this data is synthetic or there is a data leakage that I haven't noticed.")
         st.caption("Usually in reallity models with this level of accuracy are quite rare")
         st.caption("One of the positive side of using RandomForest as our model is that we can sort our features by their importance for prediction of Churn.")
         with st.expander("Feature Importance"):
-            st.image(Image.open("FeatureImportance.png"))
+            st.image("images/FeatureImportance.png")
         st.caption("Here we can see how much each column is affecting the probability of Churning.")
 
     with tab3:
