@@ -53,7 +53,7 @@ def main() -> None:
         st.caption("Reading the column descriptions gave me an overall understandng of the data, altough I lack the domain knolwedge to dive really deep.")
         st.caption("First important thing was that the target variable Churn is unbalanced")
         with st.expander("Graph"):
-            st.image("churn.png")
+            st.image("images/churn.png")
         st.caption("This information is useful for me to make decision on choice of the model.")
 
         st.header("Numeric Columns")
@@ -133,35 +133,35 @@ def main() -> None:
 
         st.write("Link to this repo: https://github.com/Ardalanh/NoorChurn")
 
-def download_dependencies():
-    images = ["https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/CategoricDist.png",
-              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/FeatureImportance.png",
-              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Missing.png",
-              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDist.png",
-              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDistChurn.png",
-              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Results.png",
-              "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/churn.png"]
-    for img in images:
-        file_path = os.path.basename(img)
-        if os.path.exists(file_path):
-            continue
-        __download_url(img, file_path)
+# def download_dependencies():
+#     images = ["https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/CategoricDist.png",
+#               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/FeatureImportance.png",
+#               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Missing.png",
+#               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDist.png",
+#               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/NumericDistChurn.png",
+#               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/Results.png",
+#               "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/images/churn.png"]
+#     for img in images:
+#         file_path = os.path.basename(img)
+#         if os.path.exists(file_path):
+#             continue
+#         __download_url(img, file_path)
 
-    weight = "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/clf.joblib"
-    file_path = os.path.basename(weight)
-    if not os.path.exists(file_path):
-        __download_url(weight, file_path)
+#     weight = "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/clf.joblib"
+#     file_path = os.path.basename(weight)
+#     if not os.path.exists(file_path):
+#         __download_url(weight, file_path)
 
-    sample_data = "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/sample_data.csv"
-    file_path = os.path.basename(sample_data)
-    if not os.path.exists(file_path):
-        __download_url(sample_data, file_path)
+#     sample_data = "https://raw.githubusercontent.com/Ardalanh/NoorChurn/main/sample_data.csv"
+#     file_path = os.path.basename(sample_data)
+#     if not os.path.exists(file_path):
+#         __download_url(sample_data, file_path)
 
 
-def __download_url(url, path):
-    img_data = requests.get(url).content
-    with open(path, "bw+") as f:
-        st.write(path)
+# def __download_url(url, path):
+#     img_data = requests.get(url).content
+#     with open(path, "bw+") as f:
+#         st.write(img_data)
 
 if __name__ == "__main__":
 
