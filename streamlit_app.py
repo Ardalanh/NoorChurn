@@ -44,7 +44,7 @@ model = load_model()
 
 
 def main() -> None:
-    download_dependencies()
+    # download_dependencies()
 
     tab1, tab2, tab3 = st.tabs(["EDA", "Modeling", "API endpoint(GUI)"])
     with tab1:
